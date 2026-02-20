@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free - Login Screen Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #F8FBFC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            background: #F8FBFC;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(26, 57, 64, 0.15);
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #1A3940;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 24px 32px;
+            overflow-y: auto;
+        }
+
+        .header {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #4A90A4 0%, #2E6B7D 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 16px rgba(74, 144, 164, 0.3);
+        }
+
+        .logo-text {
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .tagline {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1A3940;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #5A7B84;
+            line-height: 24px;
+            padding: 0 16px;
+        }
+
+        .sign-in-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: 1px solid;
+            min-height: 56px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .social-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-button.apple {
+            background: #000000;
+            color: white;
+            border-color: #000000;
+        }
+
+        .social-button.google {
+            background: white;
+            color: #1A3940;
+            border-color: #D4E5EB;
+        }
+
+        .icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .privacy-text {
+            font-size: 14px;
+            color: #8FA8B0;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .footer-note {
+            font-size: 14px;
+            color: #68B68D;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .preview-label {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(26, 57, 64, 0.8);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .info-box {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-box h2 {
+            color: #1A3940;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #5A7B84;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            color: #5A7B84;
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .info-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #68B68D;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div class="info-box">
+            <h2>🎨 Free App - Login Screen Preview</h2>
+            <p>This is what your login screen looks like! The actual React Native app will have smooth animations and native feel.</p>
+            <ul>
+                <li>Calming blues/greens color palette (#4A90A4, #68B68D)</li>
+                <li>Rounded, welcoming design with 24px border radius</li>
+                <li>Clean hierarchy: logo → tagline → description</li>
+                <li>Social sign-in buttons (Apple first on iOS, then Google)</li>
+                <li>Reassuring privacy messaging at bottom</li>
+            </ul>
+        </div>
+
+        <div class="phone-frame">
+            <div class="preview-label">LOGIN SCREEN</div>
+            <div class="screen">
+                <div class="header">
+                    <div class="logo-container">
+                        <div class="logo-text">Free</div>
+                    </div>
+                    <div class="tagline">Your journey to freedom starts here</div>
+                    <div class="description">
+                        A safe, supportive space to break free from habits and grow in faith.
+                    </div>
+                </div>
+
+                <div class="sign-in-section">
+                    <button class="social-button apple">
+                        <span class="icon"></span>
+                        Continue with Apple
+                    </button>
+
+                    <button class="social-button google">
+                        <span class="icon">🔵</span>
+                        Continue with Google
+                    </button>
+                </div>
+
+                <div class="footer">
+                    <div class="privacy-text">
+                        By continuing, you agree to our Terms of Service and Privacy Policy.
+                    </div>
+                    <div class="footer-note">
+                        Your data is private and secure. We're here to support you.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h2>🚀 To See the Real App</h2>
+            <p><strong>Run these commands in your local environment:</strong></p>
+            <pre style="background: #F8FBFC; padding: 15px; border-radius: 8px; overflow-x: auto;">
+npm install
+npm start
+
+# Then press:
+# - 'i' for iOS Simulator
+# - 'a' for Android Emulator
+# - 'w' for web preview (scan QR for mobile)</pre>
+        </div>
+    </div>
+</body>
+</html>
