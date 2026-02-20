@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Free",
+    "slug": "free",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#E8F4F8"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.free.app",
+      "usesAppleSignIn": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#E8F4F8"
+      },
+      "package": "com.free.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "scheme": "free",
+    "plugins": [
+      "expo-router",
+      "expo-apple-authentication",
+      "expo-local-authentication"
+    ]
+  }
+}
