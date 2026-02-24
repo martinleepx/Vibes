@@ -83,7 +83,8 @@ export function StreakProvider({ children }: { children: React.ReactNode }) {
       setStreak(null);
       setLoading(false);
     }
-  }, [user, isDevMode, refreshStreak]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, isDevMode]);
 
   // ── Dev-mode in-memory streak mutations ────────────────────────────────────
   const devConfirmDay = async () => {
