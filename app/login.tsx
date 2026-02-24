@@ -8,16 +8,24 @@ import {
   Platform,
   Alert,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SocialButton } from '@/components/SocialButton';
 import { Colors, Spacing, BorderRadius, Typography } from '@/constants/Colors';
 import { signInWithGoogle, signInWithApple } from '@/services/auth';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LoginScreen() {
   const router = useRouter();
+  const { enterDevMode } = useAuth();
   const [googleLoading, setGoogleLoading] = useState(false);
   const [appleLoading, setAppleLoading] = useState(false);
+
+  const handlePreview = async () => {
+    await enterDevMode();
+    router.replace('/onboarding/welcome');
+  };
 
   const handleGoogleSignIn = async () => {
     try {
@@ -33,10 +41,7 @@ export default function LoginScreen() {
         );
       }
     } catch (error) {
-      Alert.alert(
-        'Sign In Failed',
-        'An unexpected error occurred. Please try again.'
-      );
+      Alert.alert('Sign In Failed', 'An unexpected error occurred. Please try again.');
     } finally {
       setGoogleLoading(false);
     }
@@ -58,10 +63,7 @@ export default function LoginScreen() {
         }
       }
     } catch (error) {
-      Alert.alert(
-        'Sign In Failed',
-        'An unexpected error occurred. Please try again.'
-      );
+      Alert.alert('Sign In Failed', 'An unexpected error occurred. Please try again.');
     } finally {
       setAppleLoading(false);
     }
@@ -78,21 +80,18 @@ export default function LoginScreen() {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Header Section */}
+          {/* Header */}
           <View style={styles.header}>
             <View style={styles.logoContainer}>
               <Text style={styles.logoText}>Free</Text>
             </View>
-            <Text style={styles.tagline}>
-              Your journey to freedom starts here
-            </Text>
+            <Text style={styles.tagline}>Your journey to freedom starts here</Text>
             <Text style={styles.description}>
-              A safe, supportive space to break free from habits and grow in
-              faith.
+              A safe, supportive space to break free from habits and grow in faith.
             </Text>
           </View>
 
-          {/* Sign In Section */}
+          {/* Sign In */}
           <View style={styles.signInSection}>
             {Platform.OS === 'ios' && (
               <SocialButton
@@ -102,7 +101,6 @@ export default function LoginScreen() {
                 disabled={googleLoading}
               />
             )}
-
             <SocialButton
               provider="google"
               onPress={handleGoogleSignIn}
@@ -114,11 +112,27 @@ export default function LoginScreen() {
           {/* Footer */}
           <View style={styles.footer}>
             <Text style={styles.privacyText}>
-              By continuing, you agree to our Terms of Service and Privacy
-              Policy.
+              By continuing, you agree to our Terms of Service and Privacy Policy.
             </Text>
             <Text style={styles.footerNote}>
               Your data is private and secure. We're here to support you.
+            </Text>
+
+            {/* Preview bypass */}
+            <View style={styles.dividerRow}>
+              <View style={styles.dividerLine} />
+              <Text style={styles.dividerText}>or</Text>
+              <View style={styles.dividerLine} />
+            </View>
+            <TouchableOpacity
+              onPress={handlePreview}
+              activeOpacity={0.7}
+              style={styles.previewBtn}
+            >
+              <Text style={styles.previewBtnText}>👀  Preview without signing in</Text>
+            </TouchableOpacity>
+            <Text style={styles.previewNote}>
+              Explore all screens with sample data. Nothing is saved.
             </Text>
           </View>
         </ScrollView>
@@ -128,13 +142,8 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
-  keyboardView: {
-    flex: 1,
-  },
+  container: { flex: 1, backgroundColor: Colors.background },
+  keyboardView: { flex: 1 },
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: Spacing.lg,
@@ -155,29 +164,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: Spacing.lg,
-    // Subtle shadow
     shadowColor: Colors.primary,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 4,
   },
-  logoText: {
-    ...Typography.h1,
-    fontSize: 36,
-    color: Colors.white,
-    fontWeight: '700',
-  },
-  tagline: {
-    ...Typography.h2,
-    fontSize: 22,
-    color: Colors.text,
-    textAlign: 'center',
-    marginBottom: Spacing.sm,
-  },
+  logoText: { ...Typography.h1, fontSize: 36, color: Colors.white, fontWeight: '700' },
+  tagline: { ...Typography.h2, fontSize: 22, color: Colors.text, textAlign: 'center', marginBottom: Spacing.sm },
   description: {
     ...Typography.body,
     color: Colors.textSecondary,
@@ -185,14 +179,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.md,
     lineHeight: 24,
   },
-  signInSection: {
-    gap: Spacing.md,
-    marginBottom: Spacing.xl,
-  },
-  footer: {
-    alignItems: 'center',
-    gap: Spacing.sm,
-  },
+  signInSection: { gap: Spacing.md, marginBottom: Spacing.xl },
+  footer: { alignItems: 'center', gap: Spacing.sm },
   privacyText: {
     ...Typography.caption,
     color: Colors.textTertiary,
@@ -205,5 +193,31 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '500',
     paddingHorizontal: Spacing.md,
+  },
+  dividerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    marginVertical: Spacing.sm,
+    gap: Spacing.sm,
+  },
+  dividerLine: { flex: 1, height: 1, backgroundColor: Colors.border },
+  dividerText: { ...Typography.caption, color: Colors.textTertiary },
+  previewBtn: {
+    borderWidth: 1.5,
+    borderColor: Colors.border,
+    borderStyle: 'dashed',
+    borderRadius: BorderRadius.md,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    width: '100%',
+    alignItems: 'center',
+  },
+  previewBtnText: { ...Typography.body, color: Colors.textSecondary, fontWeight: '500' },
+  previewNote: {
+    ...Typography.caption,
+    color: Colors.textTertiary,
+    textAlign: 'center',
+    fontStyle: 'italic',
   },
 });

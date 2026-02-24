@@ -17,7 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SettingsScreen() {
   const router = useRouter();
-  const { user, signOut } = useAuth();
+  const { user, signOut, isDevMode } = useAuth();
   const { streak, restoresRemaining } = useStreak();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [morningTime, setMorningTime] = useState('8:00 AM');
@@ -70,6 +70,22 @@ export default function SettingsScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Settings</Text>
+
+        {/* Dev mode banner */}
+        {isDevMode && (
+          <TouchableOpacity
+            style={styles.devBanner}
+            onPress={signOut}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.devBannerIcon}>👀</Text>
+            <View style={styles.devBannerText}>
+              <Text style={styles.devBannerTitle}>Preview mode — nothing is saved</Text>
+              <Text style={styles.devBannerSub}>Tap here to exit and go back to login</Text>
+            </View>
+            <Text style={styles.devBannerArrow}>×</Text>
+          </TouchableOpacity>
+        )}
 
         {/* Profile */}
         <View style={styles.section}>
@@ -352,4 +368,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: Spacing.md,
   },
+  devBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFF8E1',
+    borderRadius: BorderRadius.md,
+    padding: Spacing.md,
+    marginBottom: Spacing.lg,
+    borderWidth: 1,
+    borderColor: '#F0C040',
+    gap: Spacing.sm,
+  },
+  devBannerIcon: { fontSize: 22 },
+  devBannerText: { flex: 1 },
+  devBannerTitle: { ...Typography.caption, color: '#7A5800', fontWeight: '700' },
+  devBannerSub: { ...Typography.caption, color: '#7A5800', marginTop: 2 },
+  devBannerArrow: { fontSize: 20, color: '#B08000', fontWeight: '600' },
 });
