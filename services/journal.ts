@@ -1,31 +1,12 @@
-import { supabase } from './supabase';
+/**
+ * Mock journal service for prototype
+ * All functions return empty/mock data for UI preview
+ */
 import type { JournalEntry } from '@/types';
 
-function rowToEntry(row: any): JournalEntry {
-  return {
-    id: row.id,
-    userId: row.user_id,
-    prompt: row.prompt,
-    content: row.content,
-    streakDay: row.streak_day,
-    createdAt: row.created_at,
-  };
-}
-
 export async function getJournalEntries(userId: string): Promise<JournalEntry[]> {
-  try {
-    const { data, error } = await supabase
-      .from('journal_entries')
-      .select('*')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-    return (data || []).map(rowToEntry);
-  } catch (err) {
-    console.error('getJournalEntries error:', err);
-    return [];
-  }
+  console.log('Mock: getJournalEntries (disabled in prototype)');
+  return [];
 }
 
 export async function createJournalEntry(
@@ -34,31 +15,19 @@ export async function createJournalEntry(
   content: string,
   streakDay: number
 ): Promise<JournalEntry | null> {
-  try {
-    const { data, error } = await supabase
-      .from('journal_entries')
-      .insert({ user_id: userId, prompt, content, streak_day: streakDay })
-      .select()
-      .single();
-
-    if (error) throw error;
-    return rowToEntry(data);
-  } catch (err) {
-    console.error('createJournalEntry error:', err);
-    return null;
-  }
+  console.log('Mock: createJournalEntry (disabled in prototype)');
+  // Return mock entry so the UI works
+  return {
+    id: `mock-${Date.now()}`,
+    userId,
+    prompt,
+    content,
+    streakDay,
+    createdAt: new Date().toISOString(),
+  };
 }
 
 export async function deleteJournalEntry(id: string): Promise<boolean> {
-  try {
-    const { error } = await supabase
-      .from('journal_entries')
-      .delete()
-      .eq('id', id);
-    if (error) throw error;
-    return true;
-  } catch (err) {
-    console.error('deleteJournalEntry error:', err);
-    return false;
-  }
+  console.log('Mock: deleteJournalEntry (disabled in prototype)');
+  return true;
 }
