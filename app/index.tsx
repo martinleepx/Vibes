@@ -1,34 +1,28 @@
 import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { supabase } from '@/services/supabase';
 import { Colors } from '@/constants/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { DEV_MODE_KEY } from '@/context/AuthContext';
 
 export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    checkAuth();
+    skipToApp();
   }, []);
 
-  const checkAuth = async () => {
+  const skipToApp = async () => {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      // Enable dev mode for UI preview
+      await AsyncStorage.setItem(DEV_MODE_KEY, 'true');
+      await AsyncStorage.setItem('@free/onboarding_complete', 'true');
 
-      if (session) {
-        const onboardingDone = await AsyncStorage.getItem('@free/onboarding_complete');
-        if (onboardingDone === 'true') {
-          router.replace('/(tabs)');
-        } else {
-          router.replace('/onboarding/welcome');
-        }
-      } else {
-        router.replace('/login');
-      }
+      // Go straight to the main app
+      router.replace('/(tabs)');
     } catch (error) {
-      console.error('Auth check error:', error);
-      router.replace('/login');
+      console.error('Navigation error:', error);
+      router.replace('/(tabs)');
     }
   };
 
