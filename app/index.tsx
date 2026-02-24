@@ -3,10 +3,8 @@ import { useRouter } from 'expo-router';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { supabase } from '@/services/supabase';
 import { Colors } from '@/constants/Colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-/**
- * Root index - handles initial navigation based on auth state
- */
 export default function Index() {
   const router = useRouter();
 
@@ -16,16 +14,16 @@ export default function Index() {
 
   const checkAuth = async () => {
     try {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      const { data: { session } } = await supabase.auth.getSession();
 
       if (session) {
-        // User is logged in, check if onboarding is complete
-        // For now, go to onboarding (we'll add home screen next)
-        router.replace('/onboarding');
+        const onboardingDone = await AsyncStorage.getItem('@free/onboarding_complete');
+        if (onboardingDone === 'true') {
+          router.replace('/(tabs)');
+        } else {
+          router.replace('/onboarding/welcome');
+        }
       } else {
-        // No session, go to login
         router.replace('/login');
       }
     } catch (error) {

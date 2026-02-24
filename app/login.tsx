@@ -25,8 +25,7 @@ export default function LoginScreen() {
       const result = await signInWithGoogle();
 
       if (result.success) {
-        // Navigate to onboarding or home
-        router.replace('/onboarding');
+        router.replace('/onboarding/welcome');
       } else {
         Alert.alert(
           'Sign In Failed',
@@ -49,8 +48,7 @@ export default function LoginScreen() {
       const result = await signInWithApple();
 
       if (result.success) {
-        // Navigate to onboarding or home
-        router.replace('/onboarding');
+        router.replace('/onboarding/welcome');
       } else {
         if (result.error !== 'Sign in was canceled') {
           Alert.alert(
