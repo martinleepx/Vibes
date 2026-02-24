@@ -111,7 +111,7 @@ export default function CrisisScreen() {
           </View>
 
           <Button
-            title={meditationStep < MEDITATION_STEPS.length - 1 ? 'Next step →' : 'I'm done 🙏'}
+            title={meditationStep < MEDITATION_STEPS.length - 1 ? 'Next step →' : "I'm done 🙏"}
             onPress={handleNextMeditationStep}
           />
         </View>
