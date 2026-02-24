@@ -88,25 +88,23 @@ export function StreakProvider({ children }: { children: React.ReactNode }) {
 
   // ── Dev-mode in-memory streak mutations ────────────────────────────────────
   const devConfirmDay = async () => {
-    setStreak(prev => {
-      if (!prev) return prev;
-      const newStreak = prev.currentStreak + 1;
-      const badge = MILESTONE_BADGES.find(b => b.days === newStreak);
-      if (badge) {
-        setNewMilestone({
-          id: 'dev-milestone',
-          userId: 'dev-preview-user',
-          days: newStreak,
-          achievedAt: new Date().toISOString(),
-        });
-      }
-      return {
-        ...prev,
-        currentStreak: newStreak,
-        longestStreak: Math.max(newStreak, prev.longestStreak),
-        totalSoberDays: prev.totalSoberDays + 1,
-        lastConfirmedAt: new Date().toISOString(),
-      };
+    if (!streak) return;
+    const newStreak = streak.currentStreak + 1;
+    const badge = MILESTONE_BADGES.find(b => b.days === newStreak);
+    if (badge) {
+      setNewMilestone({
+        id: 'dev-milestone',
+        userId: 'dev-preview-user',
+        days: newStreak,
+        achievedAt: new Date().toISOString(),
+      });
+    }
+    setStreak({
+      ...streak,
+      currentStreak: newStreak,
+      longestStreak: Math.max(newStreak, streak.longestStreak),
+      totalSoberDays: streak.totalSoberDays + 1,
+      lastConfirmedAt: new Date().toISOString(),
     });
   };
 
