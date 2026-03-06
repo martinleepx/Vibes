@@ -1,0 +1,241 @@
+/* ─── Reset / base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0f0f1a;
+  --surface:   #1a1a2e;
+  --surface2:  #16213e;
+  --accent:    #e94560;
+  --accent2:   #0f3460;
+  --text:      #e0e0e0;
+  --text-muted:#8888aa;
+  --ball:      #c8e600;
+  --radius:    12px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body { background: var(--bg); color: var(--text); min-height: 100vh; }
+
+#root { min-height: 100vh; display: flex; flex-direction: column; }
+
+button { cursor: pointer; font: inherit; border: none; }
+
+/* ─── App shell ─────────────────────────────────────────────── */
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* ─── Header ────────────────────────────────────────────────── */
+.app-header {
+  background: var(--surface);
+  border-bottom: 2px solid var(--accent2);
+  padding: 1rem 1.5rem;
+}
+.header-inner { max-width: 900px; margin: 0 auto; }
+.logo { display: flex; align-items: center; gap: 0.5rem; }
+.logo-icon { font-size: 1.8rem; }
+.logo-text { font-size: 1.5rem; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
+.header-tagline { color: var(--text-muted); font-size: 0.85rem; margin-top: 2px; }
+
+/* ─── Main ──────────────────────────────────────────────────── */
+.app-main { flex: 1; max-width: 900px; width: 100%; margin: 0 auto; padding: 1.5rem 1rem; }
+
+/* ─── Stroke nav tabs ───────────────────────────────────────── */
+.stroke-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.stroke-tab {
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: var(--surface2);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  transition: background 0.2s, color 0.2s;
+  border: 1.5px solid transparent;
+}
+.stroke-tab:hover { background: var(--accent2); color: var(--text); }
+.stroke-tab.selected {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  border-color: var(--accent);
+}
+
+/* ─── Stroke header ─────────────────────────────────────────── */
+.stroke-header { margin-bottom: 1.2rem; }
+.stroke-title { font-size: 1.6rem; font-weight: 700; color: var(--accent); margin-bottom: 0.3rem; }
+.stroke-desc   { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+
+/* ─── Stroke viewer ─────────────────────────────────────────── */
+.stroke-viewer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* ─── Figure stage ──────────────────────────────────────────── */
+.figure-stage {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--accent2);
+  padding: 1.5rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 400px;
+}
+
+.phase-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  align-self: flex-start;
+}
+.phase-number {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.phase-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.figure-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* subtle court floor line */
+  border-bottom: 3px solid #1e3a5f;
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+
+.phase-cue {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 480px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ─── Timeline ──────────────────────────────────────────────── */
+.timeline {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.timeline-step {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  background: var(--surface2);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  transition: background 0.15s, color 0.15s;
+  border: 1.5px solid transparent;
+}
+.timeline-step:hover { background: var(--accent2); color: var(--text); }
+.timeline-step.active {
+  background: var(--accent2);
+  color: var(--text);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+.step-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.timeline-step.active .step-dot { background: var(--accent); }
+
+/* ─── Controls ──────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.ctrl-btn {
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 0.9rem;
+  border: 1.5px solid var(--accent2);
+  transition: background 0.15s, border-color 0.15s;
+}
+.ctrl-btn:hover:not(:disabled) { background: var(--accent2); border-color: var(--accent); }
+.ctrl-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.play-btn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  min-width: 100px;
+}
+.play-btn:hover:not(:disabled) { background: #c73550; }
+.play-btn.pause { background: var(--accent2); }
+
+/* ─── Tips ──────────────────────────────────────────────────── */
+.tips-box {
+  background: var(--surface2);
+  border-radius: var(--radius);
+  border-left: 4px solid var(--ball);
+  padding: 1rem 1.2rem;
+}
+.tips-heading {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ball);
+  margin-bottom: 0.6rem;
+}
+.tips-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.tips-list li {
+  font-size: 0.9rem;
+  color: var(--text);
+  padding-left: 1.1rem;
+  position: relative;
+  line-height: 1.5;
+}
+.tips-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--ball);
+  font-size: 0.8rem;
+}
+
+/* ─── Footer ────────────────────────────────────────────────── */
+.app-footer {
+  text-align: center;
+  padding: 1rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--accent2);
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
+@media (max-width: 500px) {
+  .stroke-title { font-size: 1.3rem; }
+  .figure-stage { min-height: 320px; }
+  .controls { flex-wrap: wrap; }
+}
